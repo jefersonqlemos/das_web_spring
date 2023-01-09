@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-public class ClientsController {
+public class ClientController {
     @Autowired
     ClientsRepository clientsRepository;
 

@@ -8,5 +8,7 @@ public interface CartsRepository extends CrudRepository<Carts, Integer>{
 
     Carts save(Carts cart);
     Carts deleteById(int id);
+    Carts findById(int id);
+    Carts findByClientId(int clientId);
     
 }
