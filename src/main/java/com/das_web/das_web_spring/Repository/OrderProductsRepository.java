@@ -10,5 +10,5 @@ public interface OrderProductsRepository extends CrudRepository<OrderProducts, I
     List<OrderProducts> findAll();
     OrderProducts findById(int id);
     OrderProducts save(OrderProducts orderProducts);
-    OrderProducts deleteById(int id);
+    List<OrderProducts> findByOrderId(int id);
 }
