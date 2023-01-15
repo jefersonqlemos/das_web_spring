@@ -24,19 +24,20 @@ public class ClientController {
     ClientsRepository clientsRepository;
     
     @CrossOrigin(origins = "http://localhost:4200")
-    
     @GetMapping("/list-clients")
     public @ResponseBody List<Clients> listClients(){
         System.out.println(clientsRepository.findAll());
         return clientsRepository.findAll();
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/client/{id}")
     public @ResponseBody Clients getClient(@PathVariable int id){
         System.out.println(clientsRepository.findById(id));
         return clientsRepository.findById(id);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/client")
     public @ResponseBody String postClient(@RequestBody Clients client){
         System.out.println(client);
@@ -44,6 +45,7 @@ public class ClientController {
         return "OK";
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/client")
     public @ResponseBody String putClient(@RequestBody Clients client){
         System.out.println(client);
@@ -51,6 +53,7 @@ public class ClientController {
         return "OK";
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/client/{id}")
     public @ResponseBody String deleteClient(@PathVariable int id){
         System.out.println(id);
