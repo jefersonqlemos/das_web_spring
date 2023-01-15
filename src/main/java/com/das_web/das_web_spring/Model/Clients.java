@@ -49,7 +49,7 @@ public class Clients {
         this.lastName = lastName;
     }
 
-    public String Cpf(){
+    public String getCpf(){
         return cpf;
     }
 
