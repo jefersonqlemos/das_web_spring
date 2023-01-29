@@ -22,19 +22,20 @@ public class ProductController {
     ProductsRepository productsRepository;
 
     @CrossOrigin(origins = "http://localhost:4200")
-
     @RequestMapping("/list-products")
     public @ResponseBody List<Products> listClients(){
         System.out.println(productsRepository.findAll());
         return productsRepository.findAll();
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/product/{id}")
     public @ResponseBody Products getClient(@PathVariable int id){
         System.out.println(productsRepository.findById(id));
         return productsRepository.findById(id);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/product")
     public @ResponseBody String postClient(@RequestBody Products product){
         System.out.println(product);
@@ -42,6 +43,7 @@ public class ProductController {
         return "OK";
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/product")
     public @ResponseBody String putClient(@RequestBody Products product){
         System.out.println(product);
@@ -49,6 +51,7 @@ public class ProductController {
         return "OK";
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/product/{id}")
     public @ResponseBody String deleteClient(@PathVariable int id){
         System.out.println(id);

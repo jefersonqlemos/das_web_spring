@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,7 +31,12 @@ public class CartController {
     ProductsRepository productsRepository;
 
     @CrossOrigin(origins = "http://localhost:4200")
-    
+    @GetMapping("/list-carts")
+    public @ResponseBody List<Carts> listClients(){
+        return cartsRepository.findAll();
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/cart")
     public @ResponseBody Carts postCart(@RequestBody Carts cart){
         
@@ -46,7 +52,14 @@ public class CartController {
         return cartClient;
     }
 
-    @PostMapping("/cart_product")
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PutMapping("/cart")
+    public @ResponseBody Carts putCart(@RequestBody Carts cart){
+        return cartsRepository.save(cart);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/cart-product")
     public @ResponseBody String postCartProduct(@RequestBody CartProducts cartProduct){
         
         CartProducts cartProductClient = this.cartProductsRepository.findByProductIdAndCartId(cartProduct.getProductId(), cartProduct.getCartId());
@@ -62,16 +75,19 @@ public class CartController {
         return "OK";
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/cart")
     public @ResponseBody  List<Carts> getCart(){
         return cartsRepository.findAll();
     }
 
-    @GetMapping("/cart_product/{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/cart-product/{id}")
     public @ResponseBody  List<CartProducts> getCartProduct(@PathVariable int id){
         return cartProductsRepository.findByCartId(id);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/cart/{id}")
     public @ResponseBody String deleteCart(@PathVariable int id){
         cartsRepository.deleteById(id);
@@ -79,7 +95,8 @@ public class CartController {
         return "OK";
     }
 
-    @DeleteMapping("/cart_product/{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
+    @DeleteMapping("/cart-product/{id}")
     public @ResponseBody  String deleteCartProduct(@PathVariable int id){
         cartProductsRepository.deleteById(id);
         return "OK";
