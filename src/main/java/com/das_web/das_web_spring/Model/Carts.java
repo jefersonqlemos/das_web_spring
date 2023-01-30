@@ -28,7 +28,7 @@ public class Carts {
     @Column
     private int clientId;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name="clientId", referencedColumnName = "id", insertable = false, updatable = false)
     private Clients clients;
 

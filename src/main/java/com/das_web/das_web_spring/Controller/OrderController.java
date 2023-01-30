@@ -35,11 +35,11 @@ public class OrderController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/order/{id}")
-    public @ResponseBody String postCart(@PathVariable int id){
+    public @ResponseBody String postOrder(@PathVariable int id){
             
         Carts cartClient = this.cartsRepository.findById(id);
 
-        Orders orderClient = null;
+        Orders orderClient = new Orders();
 
         orderClient.setId(cartClient.getId());
         orderClient.setClientId(cartClient.getClientId());
@@ -64,16 +64,16 @@ public class OrderController {
             
         //System.out.println(cart);
 
-        return "ok";
+        return "OK";
     }
 
     @GetMapping("/order")
-    public @ResponseBody  List<Orders> getCart(){
+    public @ResponseBody  List<Orders> getOrder(){
         return ordersRepository.findAll();
     }
 
     @GetMapping("/order_product/{id}")
-    public @ResponseBody  List<OrderProducts> getCartProduct(@PathVariable int id){
+    public @ResponseBody  List<OrderProducts> getOrderProduct(@PathVariable int id){
         return orderProductsRepository.findByOrderId(id);
     }
 }
