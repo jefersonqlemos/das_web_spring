@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +23,18 @@ public class Orders {
 
     @Column
     private int clientId;
+
+    @OneToOne
+    @JoinColumn(name="clientId", referencedColumnName = "id", insertable = false, updatable = false)
+    private Clients clients;
+
+    public Clients getClients() {
+        return clients;
+    }
+
+    public void setClients(Clients clients) {
+        this.clients = clients;
+    }
 
     public int getId(){
         return id;

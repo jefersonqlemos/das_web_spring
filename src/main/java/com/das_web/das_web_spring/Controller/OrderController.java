@@ -67,7 +67,8 @@ public class OrderController {
         return "OK";
     }
 
-    @GetMapping("/order")
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/list-orders")
     public @ResponseBody  List<Orders> getOrder(){
         return ordersRepository.findAll();
     }

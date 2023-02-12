@@ -37,6 +37,18 @@ public class Clients {
     @JsonIgnore
     private Carts carts;
 
+    /*@OneToOne(mappedBy = "clients")
+    @JsonIgnore
+    private Orders orders;
+
+    public Orders getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Orders orders) {
+        this.orders = orders;
+    }*/
+
     public Carts getCarts() {
         return carts;
     }
