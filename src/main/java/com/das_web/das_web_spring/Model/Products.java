@@ -8,22 +8,18 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "cliente")
-public class Clientes {
-
+@Table(name = "products")
+public class Products {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column
     private int id;
 
     @Column
-    private String nome;
+    private String name;
 
     @Column
-    private String sobrenome;
-
-    @Column
-    private String cpf;
+    private float value;
 
     public int getId(){
         return id;
@@ -33,28 +29,20 @@ public class Clientes {
         this.id = id;
     }
 
-    public String getNome(){
-        return nome;
+    public String getName(){
+        return name;
     }
 
-    public void setNome(String nome){
-        this.nome = nome;
+    public void setName(String name){
+        this.name = name;
     }
 
-    public String getSobrenome(){
-        return sobrenome;
+    public float getValue(){
+        return value;
     }
 
-    public void setSobrenome(String sobrenome){
-        this.sobrenome = sobrenome;
-    }
-
-    public String Cpf(){
-        return cpf;
-    }
-
-    public void setCpf(String cpf){
-        this.cpf = cpf;
+    public void setValue(float value){
+        this.value = value;
     }
 
 }

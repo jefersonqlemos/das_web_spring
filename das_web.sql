@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 09-Ago-2022 às 01:03
--- Versão do servidor: 5.7.31
--- versão do PHP: 7.4.9
+-- Tempo de geração: 12-Fev-2023 às 22:15
+-- Versão do servidor: 5.7.36
+-- versão do PHP: 7.4.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,86 +24,123 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `cliente`
+-- Estrutura da tabela `carts`
 --
 
-DROP TABLE IF EXISTS `cliente`;
-CREATE TABLE IF NOT EXISTS `cliente` (
-  `id` int(11) NOT NULL,
-  `cpf` varchar(45) DEFAULT NULL,
-  `nome` varchar(45) DEFAULT NULL,
-  `sobrenome` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `cliente`
---
-
-INSERT INTO `cliente` (`id`, `cpf`, `nome`, `sobrenome`) VALUES
-(1, '22222222222', 'teste', 'teste');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `itemdopedido`
---
-
-DROP TABLE IF EXISTS `itemdopedido`;
-CREATE TABLE IF NOT EXISTS `itemdopedido` (
-  `id` int(11) NOT NULL,
-  `quantidade` int(11) DEFAULT NULL,
-  `Pedido_id` int(11) NOT NULL,
-  `Produto_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `carts`;
+CREATE TABLE IF NOT EXISTS `carts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `total_value` decimal(10,0) DEFAULT NULL,
+  `client_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_ItemDoPedido_Pedido1_idx` (`Pedido_id`),
-  KEY `fk_ItemDoPedido_Produto1_idx` (`Produto_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `fk_client_id` (`client_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `carts`
+--
+
+INSERT INTO `carts` (`id`, `total_value`, `client_id`) VALUES
+(27, '54', 1);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `pedido`
+-- Estrutura da tabela `cart_products`
 --
 
-DROP TABLE IF EXISTS `pedido`;
-CREATE TABLE IF NOT EXISTS `pedido` (
-  `id` int(11) NOT NULL,
-  `data` date DEFAULT NULL,
-  `Cliente_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_Pedido_Cliente_idx` (`Cliente_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `produto`
---
-
-DROP TABLE IF EXISTS `produto`;
-CREATE TABLE IF NOT EXISTS `produto` (
-  `id` int(11) NOT NULL,
-  `descricao` varchar(45) DEFAULT NULL,
+DROP TABLE IF EXISTS `cart_products`;
+CREATE TABLE IF NOT EXISTS `cart_products` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `quantity` int(11) NOT NULL,
+  `cart_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `value` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
 
 --
--- Restrições para despejos de tabelas
+-- Estrutura da tabela `clients`
 --
 
---
--- Limitadores para a tabela `itemdopedido`
---
-ALTER TABLE `itemdopedido`
-  ADD CONSTRAINT `fk_ItemDoPedido_Pedido1` FOREIGN KEY (`Pedido_id`) REFERENCES `pedido` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_ItemDoPedido_Produto1` FOREIGN KEY (`Produto_id`) REFERENCES `produto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+DROP TABLE IF EXISTS `clients`;
+CREATE TABLE IF NOT EXISTS `clients` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cpf` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Limitadores para a tabela `pedido`
+-- Extraindo dados da tabela `clients`
 --
-ALTER TABLE `pedido`
-  ADD CONSTRAINT `fk_Pedido_Cliente` FOREIGN KEY (`Cliente_id`) REFERENCES `cliente` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+INSERT INTO `clients` (`id`, `name`, `last_name`, `cpf`) VALUES
+(1, 'jeferson', 'lemos', '54656565794'),
+(11, 'gtgtg', 'tgtgt', '5657575757');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `orders`
+--
+
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE IF NOT EXISTS `orders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `total_value` decimal(10,0) DEFAULT NULL,
+  `client_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `client_id` (`client_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `orders`
+--
+
+INSERT INTO `orders` (`id`, `total_value`, `client_id`) VALUES
+(8, '54', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `order_products`
+--
+
+DROP TABLE IF EXISTS `order_products`;
+CREATE TABLE IF NOT EXISTS `order_products` (
+  `id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `value` decimal(10,2) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `products`
+--
+
+DROP TABLE IF EXISTS `products`;
+CREATE TABLE IF NOT EXISTS `products` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `products`
+--
+
+INSERT INTO `products` (`id`, `name`, `value`) VALUES
+(1, 'iooooooo', '22.00'),
+(2, 'kkkkkkk4', '32.34'),
+(3, 'kkkkkk333333', '11.22');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
